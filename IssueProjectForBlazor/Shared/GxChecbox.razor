@@ -1,0 +1,25 @@
+﻿<!-- Checkbox -->
+<div class="dt-checkbox dt-checkbox-icon dt-checkbox-only @AddClass">
+    <input id="@Guid" type="checkbox" @bind="IsChecked" @oninput="onInputChange">
+</div>
+<!-- /checkbox -->
+
+@code {
+
+    private Guid Guid { get; set; }
+    [Parameter] public string AddClass { get; set; }
+
+    [Parameter] public bool IsChecked { get; set; }
+    [Parameter] public bool Indeterminate { get; set; }
+    [Parameter] public EventCallback<bool> StateChanged { get; set; }
+
+    void onInputChange(Microsoft.AspNetCore.Components.ChangeEventArgs args)
+    {
+        StateChanged.InvokeAsync((bool)args.Value);
+    }
+
+    protected override void OnInitialized()
+    {
+        Guid = Guid.NewGuid();
+    }
+}
